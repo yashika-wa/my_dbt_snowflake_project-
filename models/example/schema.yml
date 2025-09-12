@@ -1,0 +1,91 @@
+
+version: 2
+
+models:
+  - name: my_first_dbt_model
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+  - name: my_second_dbt_model
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+
+sources:
+  - name: amazon_books
+    database: my_db 
+    schema: my_schema 
+    tables:
+      - name: amazon_books
+
+models: 
+  - name: stg_amazon_books
+    description: "Staging model for Cleaning and preparing Amazon Books data"
+    columns: 
+      - name: name 
+        description: "Book name"
+        data_tests:
+          - not_null 
+      - name: author 
+        description: "Author of the book"
+        data_tests:
+          - not_null
+      - name: user_rating
+        description: "User rating of the book"
+        data_tests:
+          - not_null
+      - name: reviews
+        description: "Number of reviews"
+        data_tests:
+          - not_null   
+      - name: price
+        description: "Publication year"
+        data_tests:
+          - not_null
+      - name: genre 
+        description: "Book genre"
+        data_tests:
+          - not_null
+
+  - name: books_cateory_summary
+    description: "Aggregated data of books by genre"
+    columns:
+      - name: genre 
+        description: "Book genre"
+        data_tests:
+          - not_null
+      - name: total_reviews 
+        description: "Total numberof reviews in the genre"
+        data_tests:
+          - not_null
+
+  - name: monthly_sales_trend
+    description: "Trend of books published per year per genre" 
+    columns:
+      - name: year
+        description: "Year of publication"
+        data_tests:
+          - not_null
+      - name: book_genre
+        description: "Book genre"
+        data_tests:
+          - not_null
+      - name: avg_price
+        description: "Average price of books in the group"
+        data_tests:
+          - not_null
+      - name: total_reviews
+        description: "Total reviews published in that year and genre"
+        data_tests:
+          - not_null
+      
+      
